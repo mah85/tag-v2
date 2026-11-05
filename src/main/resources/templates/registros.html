@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registros | Fechadura Inteligente</title><link rel="stylesheet" th:href="@{/css/style.css}"></head><body>
+<header class="topbar"><a class="brand" href="/painel">⌑ Fechadura Inteligente</a><a class="btn outline" href="/painel">Voltar ao painel</a></header>
+<main class="container"><p class="eyebrow">AUDITORIA</p><h1>Registros de acesso</h1><p class="muted">Histórico das autenticações e operações realizadas no sistema.</p>
+<div class="table-wrap"><table><thead><tr><th>Data e hora</th><th>Usuário informado</th><th>Resultado</th><th>Detalhe</th></tr></thead><tbody>
+<tr th:each="r : ${registros}"><td th:text="${#temporals.format(r.dataHora, 'dd/MM/yyyy HH:mm:ss')}"></td><td th:text="${r.usuarioInformado}"></td><td th:text="${r.resultado}"></td><td th:text="${r.detalhe}"></td></tr>
+<tr th:if="${#lists.isEmpty(registros)}"><td colspan="4" class="empty">Nenhum registro encontrado.</td></tr></tbody></table></div></main></body></html>

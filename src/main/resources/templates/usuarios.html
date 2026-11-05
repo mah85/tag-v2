@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usuários | Fechadura Inteligente</title><link rel="stylesheet" th:href="@{/css/style.css}"></head><body>
+<header class="topbar"><a class="brand" href="/painel">⌑ Fechadura Inteligente</a><a class="btn outline" href="/painel">Voltar ao painel</a></header>
+<main class="container"><p class="eyebrow">ADMINISTRAÇÃO</p><h1>Gerenciar usuários</h1><p class="muted">Cadastre e controle quem pode utilizar o sistema.</p>
+<div class="form-card"><h2>Novo usuário</h2><div class="alert error" th:if="${erro}" th:text="${erro}"></div>
+<form method="post" action="/usuarios" class="form-grid"><div><label>Nome completo</label><input name="nome" required></div><div><label>Login</label><input name="login" required></div><div><label>Senha (mínimo 6 caracteres)</label><input name="senha" type="password" minlength="6" required></div><div><label>Perfil</label><select name="perfil"><option value="USUARIO">Usuário</option><option value="ADMIN">Administrador</option></select></div><button class="btn primary" type="submit">Cadastrar usuário</button></form></div>
+<div class="table-wrap"><table><thead><tr><th>Nome</th><th>Login</th><th>Perfil</th><th>Status</th><th>Ações</th></tr></thead><tbody>
+<tr th:each="u : ${usuarios}"><td th:text="${u.nome}"></td><td th:text="${u.nomeUsuario}"></td><td th:text="${u.perfil}"></td><td th:text="${u.ativo} ? 'Ativo' : 'Inativo'"></td><td class="actions-cell">
+<form th:if="${u.nomeUsuario != 'admin'}" th:action="@{/usuarios/{id}/status(id=${u.id})}" method="post"><input type="hidden" name="ativo" th:value="${!u.ativo}"><button class="btn small outline" type="submit" th:text="${u.ativo} ? 'Desativar' : 'Ativar'"></button></form>
+<form th:if="${u.nomeUsuario != 'admin'}" th:action="@{/usuarios/{id}/excluir(id=${u.id})}" method="post" onsubmit="return confirm('Deseja excluir este usuário?')"><button class="btn small danger" type="submit">Excluir</button></form></td></tr>
+</tbody></table></div></main></body></html>

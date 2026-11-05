@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login | Fechadura Inteligente</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body class="login-page"><main class="login-card">
+<div class="brand-icon">⌑</div><h1>Fechadura Inteligente</h1><p class="muted">Entre para controlar o acesso</p>
+<div class="alert error" th:if="${erro}" th:text="${erro}"></div>
+<form method="post" action="/login">
+<label>Usuário</label><input name="login" autocomplete="username" placeholder="Digite seu usuário" required>
+<label>Senha</label><input name="senha" type="password" autocomplete="current-password" placeholder="Digite sua senha" required>
+<button class="btn primary full" type="submit">Entrar no sistema</button>
+</form>
+<div class="demo"><strong>Acessos para demonstração</strong><br>Administrador: <code>admin</code> / <code>admin123</code><br>Usuário: <code>maria</code> / <code>123456</code></div>
+</main></body></html>

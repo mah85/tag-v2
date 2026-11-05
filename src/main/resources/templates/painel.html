@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel | Fechadura Inteligente</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body><header class="topbar"><div class="brand">⌑ Fechadura Inteligente</div><div class="top-actions"><span th:text="${usuario.nome}"></span><form method="post" action="/sair"><button class="btn outline" type="submit">Sair</button></form></div></header>
+<main class="container"><div class="page-heading"><div><p class="eyebrow">PAINEL DE CONTROLE</p><h1>Olá, <span th:text="${usuario.nome}">usuário</span>!</h1><p class="muted">Gerencie o estado da fechadura simulada.</p></div></div>
+<section class="status-card">
+<div><p class="eyebrow">ESTADO ATUAL</p><div class="status-line"><span class="status-dot" th:classappend="${bloqueada} ? ' locked' : ' unlocked'"></span><h2 th:text="${bloqueada} ? 'Fechadura bloqueada' : 'Fechadura desbloqueada'"></h2></div><p class="muted">Este projeto representa o acionamento por simulação de software.</p></div>
+<div class="actions"><form th:if="${bloqueada}" method="post" action="/fechadura/desbloquear"><button class="btn success" type="submit">Desbloquear</button></form>
+<form th:unless="${bloqueada}" method="post" action="/fechadura/bloquear"><button class="btn danger" type="submit">Bloquear</button></form></div>
+</section>
+<div class="section-title"><h2>Últimas movimentações</h2><a href="/registros" th:if="${usuario.perfil == 'ADMIN'}">Ver todos</a></div>
+<div class="table-wrap"><table><thead><tr><th>Data e hora</th><th>Usuário</th><th>Resultado</th><th>Detalhe</th></tr></thead><tbody>
+<tr th:each="r : ${registros}"><td th:text="${#temporals.format(r.dataHora, 'dd/MM/yyyy HH:mm:ss')}"></td><td th:text="${r.usuarioInformado}"></td><td><span class="tag" th:text="${r.resultado}"></span></td><td th:text="${r.detalhe}"></td></tr>
+<tr th:if="${#lists.isEmpty(registros)}"><td colspan="4" class="empty">Nenhuma movimentação registrada.</td></tr></tbody></table></div>
+<nav class="quick-links" th:if="${usuario.perfil == 'ADMIN'}"><a href="/usuarios">Gerenciar usuários →</a><a href="/registros">Consultar registros →</a></nav>
+</main></body></html>
