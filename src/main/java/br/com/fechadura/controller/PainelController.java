@@ -22,7 +22,11 @@ public class PainelController {
         Usuario u = usuario(session);
         if (u == null) return "redirect:/login";
         model.addAttribute("usuario", u);
-        model.addAttribute("bloqueada", fechadura.isBloqueada());
+        boolean bloqueada = fechadura.isBloqueada();
+        model.addAttribute("bloqueada", bloqueada);
+        model.addAttribute("orientacaoEstado", bloqueada
+                ? "A fechadura está protegida. Desbloqueie somente se o acesso for autorizado."
+                : "A fechadura está liberada. Lembre-se de bloqueá-la após concluir o acesso.");
         model.addAttribute("registros", acessos.listar().stream().limit(5).toList());
         return "painel";
     }

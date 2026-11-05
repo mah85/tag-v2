@@ -4,7 +4,7 @@
 <body><header class="topbar"><div class="brand">⌑ Fechadura Inteligente</div><div class="top-actions"><span th:text="${usuario.nome}"></span><form method="post" action="/sair"><button class="btn outline" type="submit">Sair</button></form></div></header>
 <main class="container"><div class="page-heading"><div><p class="eyebrow">PAINEL DE CONTROLE</p><h1>Olá, <span th:text="${usuario.nome}">usuário</span>!</h1><p class="muted">Gerencie o estado da fechadura simulada.</p></div></div>
 <section class="status-card">
-<div><p class="eyebrow">ESTADO ATUAL</p><div class="status-line"><span class="status-dot" th:classappend="${bloqueada} ? ' locked' : ' unlocked'"></span><h2 th:text="${bloqueada} ? 'Fechadura bloqueada' : 'Fechadura desbloqueada'"></h2></div><p class="muted">Este projeto representa o acionamento por simulação de software.</p></div>
+<div><p class="eyebrow">ESTADO ATUAL</p><div class="status-line"><span class="status-dot" th:classappend="${bloqueada} ? ' locked' : ' unlocked'"></span><h2 th:text="${bloqueada} ? 'Fechadura bloqueada' : 'Fechadura desbloqueada'"></h2></div><p class="muted" th:text="${orientacaoEstado}">Orientação sobre o estado da fechadura.</p><p class="muted">Este projeto representa o acionamento por simulação de software.</p></div>
 <div class="actions"><form th:if="${bloqueada}" method="post" action="/fechadura/desbloquear"><button class="btn success" type="submit">Desbloquear</button></form>
 <form th:unless="${bloqueada}" method="post" action="/fechadura/bloquear"><button class="btn danger" type="submit">Bloquear</button></form></div>
 </section>
